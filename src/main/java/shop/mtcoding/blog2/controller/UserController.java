@@ -31,9 +31,10 @@ public class UserController {
 
     @PostMapping("/join")
     public String join(JoinReqDto joinReqDto) {
-        if (joinReqDto.getUsername().isEmpty() || joinReqDto.getUsername() == null) {
-            throw new CustomException("username을 입력하세요.");
-        }
+        // if (joinReqDto.getUsername().isEmpty() || joinReqDto.getUsername() == null) {
+        // throw new CustomException("username을 입력하세요.");
+        // }
+        validateString(joinReqDto.getUsername());
         if (joinReqDto.getPassword().isEmpty() || joinReqDto.getPassword() == null) {
             throw new CustomException("password를 입력하세요.");
         }
@@ -44,4 +45,9 @@ public class UserController {
         return "redirect:/loginForm";
     }
 
+    private void validateString(String data) {
+        if (data.isEmpty() || data == null) {
+            throw new CustomException("username을 입력하세요.");
+        }
+    }
 }
