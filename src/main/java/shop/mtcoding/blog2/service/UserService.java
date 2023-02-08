@@ -18,10 +18,7 @@ public class UserService {
 
     @Transactional
     public void join(JoinReqDto joinReqDto) {
-        User principal = userRepository.findByUsername(joinReqDto.getUsername());
-        if (principal != null) {
-            throw new CustomException("이미 존재하는 username입니다.");
-        }
+        checkAlreadyHasSameUsername(joinReqDto.getUsername());
         try {
             userRepository.insert(joinReqDto.getUsername(), joinReqDto.getPassword(), joinReqDto.getEmail());
         } catch (Exception e) {
@@ -29,4 +26,10 @@ public class UserService {
         }
     }
 
+    private void checkAlreadyHasSameUsername(String username) {
+        User principal = userRepository.findByUsername(username);
+        if (principal != null) {
+            throw new CustomException("이미 존재하는 username입니다.");
+        }
+    }
 }
