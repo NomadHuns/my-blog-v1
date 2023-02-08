@@ -40,7 +40,7 @@ public class UserController {
         if (joinReqDto.getEmail().isEmpty() || joinReqDto.getEmail() == null) {
             throw new CustomException("email을 입력하세요.");
         }
-        userService.join();
+        userService.join(joinReqDto);
         return "redirect:/loginForm";
     }
 
